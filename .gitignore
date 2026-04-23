@@ -1,0 +1,50 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Build / packaging ─────────────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+
+# ── Scraper runtime files ─────────────────────────────────────────────────────
+# Real scraped data — never commit to a public repo
+output/
+
+# Debug logs — contain run details and visited URLs
+logs/
+
+# Checkpoint and resume files — machine-specific, not portable
+scraper_checkpoint.json
+scraper_checkpoint.json.tmp
+scraper_done_queries.txt
+
+# Persistent browser profile — contains your Google login session cookies.
+# Never commit this — it contains your personal authentication data.
+scraper_profile/
+
+# File-based control interface
+command.txt
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,284 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║       Google Maps Business Scraper — config.yaml                ║
+# ║                                                                  ║
+# ║  Fill in the ★ REQUIRED ★ section, then run:                    ║
+# ║                                                                  ║
+# ║  City mode  (fast, ~60-120 results):                             ║
+# ║      python maps_scraper.py --mode city                          ║
+# ║                                                                  ║
+# ║  Mega mode  (full coverage, 500-5000+ results):                  ║
+# ║      python maps_scraper.py --mode mega                          ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  ★ REQUIRED ★  — Fill these in before running.
+#  Everything else has sensible defaults and can be left as-is.
+# ══════════════════════════════════════════════════════════════════════════════
+
+search:
+  query: "property managers"     # ★ What to search for
+                                 #   e.g. "dentists" | "italian restaurants" | "solicitors"
+                                 #        "emergency plumbers" | "chartered accountants"
+  location: "Manchester"         # ★ City or area  — e.g. "Manchester" or "Chicago"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  PHONE  — Set your country's calling format for clean, dialable numbers.
+#  Without these, the phone column may contain unstripped country codes,
+#  date strings, or 4-digit short numbers. Takes 30 seconds to configure.
+# ══════════════════════════════════════════════════════════════════════════════
+
+phone:
+  country_code: "44"         # Dialing code without +.
+                             #   UK=44 | US=1 | Germany=49 | Australia=61 | France=33
+                             # Leave empty "" to accept any phone number format.
+
+  # Valid local phone prefixes (first 2-3 digits after removing country code).
+  # Leave empty [] to accept all prefixes.
+  # UK example (pre-filled below): 01x, 02x, 03x, 07x local prefixes
+  # US example:     valid_prefixes: []   # US numbers vary — accept all, filter by length
+  # Germany example: valid_prefixes: ["015","016","017","030","040","089"]
+  valid_prefixes:
+    - "011"
+    - "012"
+    - "013"
+    - "014"
+    - "015"
+    - "016"
+    - "017"
+    - "018"
+    - "019"
+    - "020"
+    - "021"
+    - "022"
+    - "023"
+    - "024"
+    - "028"
+    - "029"
+    - "030"
+    - "033"
+    - "07"
+  # US example:
+  # valid_prefixes: []   # US numbers vary too much — accept all, filter by length
+
+  # Prefer this prefix when multiple phones are found (e.g. a city dialling code).
+  # Leave empty "" to just take the first phone found.
+  preferred_prefix: ""
+
+  # Valid digit counts for a normalised local number. Leave empty [] to accept all.
+  valid_lengths: [10, 11]  # UK: most numbers are 10 or 11 digits
+  # US example:        valid_lengths: [10]         # US: always 10 digits (area code + 7)
+  # Germany example:   valid_lengths: [10, 11, 12] # German numbers vary 10-12 digits
+  # Australia example: valid_lengths: [9, 10]       # AU: 9 mobile, 10 with area code
+  # France example:    valid_lengths: [9, 10]        # FR: 9-10 digits local
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  GEOGRAPHIC FILTER  — Optional bounding box + postcode filter
+#  Results whose GPS coordinates fall outside this box are discarded.
+#  Leave all four values at 0.0 to disable geographic filtering.
+#  Find your bounding box at: https://boundingbox.klokantech.com/
+# ══════════════════════════════════════════════════════════════════════════════
+
+geography:
+  lat_min: 0.0        # e.g. 53.30  (south edge of your area)
+  lat_max: 0.0        # e.g. 53.65  (north edge of your area)
+  lng_min: 0.0        # e.g. -2.35  (west edge of your area)
+  lng_max: 0.0        # e.g. -2.10  (east edge of your area)
+
+  # Mega mode: one search per zone to bypass Google's per-query cap (~120 results).
+  # Add postcode districts, zip codes, or borough names.
+  region_zones: []
+  # London (UK) postcodes example:
+  # region_zones: ["E1","EC1","N1","NW1","SE1","SW1","W1","WC1"]
+  # Manchester (UK) postcodes example:
+  # region_zones: ["M1","M2","M3","M4","M11","M12","M13","M14","M15","M16",
+  #                "M20","M21","M22","M23","M32","M33","M40","M41","M43","M44"]
+  # New York (US) zip codes example:
+  # region_zones: ["10001","10002","10003","10004","10005","10006","10007"]
+  # Berlin (Germany) PLZ example:
+  # region_zones: ["10115","10117","10119","10178","10179","10243","10245"]
+  # Sydney (Australia) postcodes example:
+  # region_zones: ["2000","2010","2011","2015","2016","2017","2020","2021"]
+
+  # Postcode prefix whitelist — only keep results from these prefixes.
+  # Empty [] = keep everything that passes the bounding box.
+  valid_postcode_prefixes: []
+  # UK example (Manchester area):    ["M","SK","BL","OL","WA"]
+  # UK example (London area):        ["E","EC","N","NW","SE","SW","W","WC"]
+  # US example (New York zip stems): ["100","101","102","103","104"]
+  # Germany example (Berlin PLZ stems): ["101","102","103","104","105","106","107","108","109","110"]
+
+  # Regex to extract postcode/zipcode from an address string.
+  postcode_pattern: '\b([A-Z]{1,2}\d{1,2}[A-Z]?)\s*\d[A-Z]{2}\b'
+  # UK postcode (above, default): '\b([A-Z]{1,2}\d{1,2}[A-Z]?)\s*\d[A-Z]{2}\b'
+  # US zip code:    '\b(\d{5})(?:-\d{4})?\b'
+  # German PLZ:     '\b(\d{5})\b'
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  CATEGORY CLASSIFICATION  — Auto-label results by business type.
+#  Add your own labels and keywords. Delete the examples below and replace.
+#  Leave keywords as empty dict {} if you don't need categories.
+# ══════════════════════════════════════════════════════════════════════════════
+
+classification:
+  keywords: {}
+  # Example taxonomy — Restaurants:
+  # keywords:
+  #   "Restaurant":      ["restaurant","brasserie","bistro","steakhouse"]
+  #   "Bar & Pub":       ["bar","pub","tavern","gastropub","beer garden"]
+  #   "Takeaway":        ["takeaway","take-away","kebab","chippy","fast food"]
+  #   "Cafe":            ["cafe","coffee shop","tearoom","patisserie","bakery"]
+  #   "Other":           []
+  #
+  # Example taxonomy — Healthcare:
+  # keywords:
+  #   "Dental Practice": ["dentist","dental","orthodontist","oral surgery"]
+  #   "GP Surgery":      ["gp","general practice","doctor","medical centre"]
+  #   "Pharmacy":        ["pharmacy","chemist","dispensary"]
+  #   "Optician":        ["optician","optometrist","vision","eyecare"]
+  #   "Other":           []
+  #
+  # Example taxonomy — Legal & Finance:
+  # keywords:
+  #   "Solicitor":         ["solicitor","law firm","barrister","conveyancing"]
+  #   "Accountant":        ["accountant","accounting","chartered accountant","CPA"]
+  #   "Financial Advisor": ["financial advisor","IFA","wealth management","financial planning"]
+  #   "Mortgage Broker":   ["mortgage broker","mortgage advisor","mortgage specialist"]
+  #   "Other":             []
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  PROXY ROTATION  — Optional. Leave proxies empty [] to run without proxies.
+#  See docs/proxy_guide.md for where to get proxies and format details.
+# ══════════════════════════════════════════════════════════════════════════════
+
+stealth:
+  proxies: []
+  # Example:
+  # proxies:
+  #   - "http://185.199.229.156:7492"
+  #   - "http://user:pass@gate.smartproxy.com:7000"
+  #   - "socks5://192.168.1.1:1080"
+  rotate_every: 10   # rotate proxy every N completed queries (0 = on failure only)
+                     # Set to 0 if you only have 1 proxy.
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  CAPTCHA HANDLING
+#  human_solve: true  — captcha detected → browser reopens visibly so you can
+#  solve it, then scraping resumes automatically in the same session.
+# ══════════════════════════════════════════════════════════════════════════════
+
+captcha:
+  human_solve: true
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  JUNK FILTERS  — Domains and placeholder emails to discard
+# ══════════════════════════════════════════════════════════════════════════════
+
+filters:
+  # Websites to skip when fetching email/phone — social media, aggregators.
+  skip_domains:
+    - "facebook.com"
+    - "twitter.com"
+    - "x.com"
+    - "linkedin.com"
+    - "instagram.com"
+    - "youtube.com"
+    - "google.com"
+    - "bing.com"
+    - "wikipedia.org"
+    - "trustpilot.com"
+    - "tripadvisor.com"
+    - "yelp.com"
+    - "yell.com"
+    - "checkatrade.com"
+    - "rated-people.com"
+
+  # Exact placeholder / no-reply emails to discard
+  junk_emails:
+    - "user@domain.com"
+    - "test@test.com"
+    - "email@example.com"
+    - "info@example.com"
+    - "name@domain.com"
+    - "example@example.com"
+    - "no-reply@no-reply.com"
+    - "admin@admin.com"
+    - "example@mysite.com"
+
+  # Email domain substrings — discard any email whose domain contains these
+  junk_email_domains:
+    - "sentry.io"
+    - "wixpress.com"
+    - "example.com"
+    - "mysite.com"
+    - "schema.org"
+    - "w3.org"
+    - "googleapis.com"
+    - "cloudflare.com"
+    - "jquery.com"
+    - "gravatar.com"
+    - "noreply.com"
+    - "transactional."
+    - "mailchimp.com"
+    - "sendgrid.net"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  PERFORMANCE  — Defaults are tuned for Windows + Google Chrome.
+# ══════════════════════════════════════════════════════════════════════════════
+
+performance:
+  headless: true              # true  = invisible browser (faster, for unattended runs) ★ recommended
+                              # false = visible browser (useful for debugging)
+  browser_channel: "chrome"  # "chrome"   = your installed Google Chrome (recommended)
+                              # "chromium" = Playwright's built-in (fallback if Chrome not installed)
+  scroll_pause: 1.5           # seconds between scroll actions
+  slow_connection_wait: 25    # seconds to wait for Maps spinner before counting a stall.
+                              # Increase to 35-40 on slow internet connections.
+  max_stalls: 5               # How many consecutive stall periods before declaring end of results.
+                              # Default 5 (= 5 × slow_connection_wait seconds of patience).
+                              # Increase to 7-8 for very large result sets on slow connections.
+  request_delay: 0.3          # seconds between zone queries in mega mode
+  fetch_threads: 15           # parallel website fetchers for enrichment (10-20 recommended)
+  http_timeout: [2, 6]        # [connect_seconds, read_seconds] — 2s connect fails fast on dead hosts
+  hard_timeout: 8             # absolute max seconds per website fetch (overrides http_timeout)
+  browser_restart_every: 300  # restart browser every N zones (frees memory on overnight runs)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  OUTPUT
+# ══════════════════════════════════════════════════════════════════════════════
+
+output:
+  format: "csv"               # "csv" (default, zero dependencies)
+                              # "excel" (styled headers, needs: pip install openpyxl)
+  directory: "output"         # folder where results are saved (auto-created)
+  filename_prefix: "MapsScrape"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SCHEDULING  — Optional auto-stop and disk space guard
+# ══════════════════════════════════════════════════════════════════════════════
+
+scheduling:
+  stop_at: null               # Auto-stop at HH:MM 24-hour. e.g. "06:30". null = disabled.
+                              # Zero-pad single-digit hours: "09:00" not "9:00".
+                              # Handles cross-midnight correctly (e.g. start 23:30, stop 06:00).
+  disk_min_mb: 500            # Pause if free disk space drops below this (MB)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  INTERNAL FILE PATHS  — Safe to leave as defaults
+# ══════════════════════════════════════════════════════════════════════════════
+
+files:
+  checkpoint:   "scraper_checkpoint.json"
+  done_queries: "scraper_done_queries.txt"
+  command_file: "command.txt"
+  log_dir:      "logs"
