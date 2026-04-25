@@ -27,6 +27,13 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 
 ---
 
+##Preview
+
+![Terminal progress](Assets/terminal_progress.png)
+![Excel output](Assets/output_preview.png)
+
+---
+
 ## Quick start
 
 ### 1. Install dependencies
@@ -86,13 +93,6 @@ Results are saved to `output/MapsScrape_<query>_<location>_<date>.csv`.
 
 ---
 
-## Preview
-
-**Live scraping progress:**
-![Terminal progress](assets/terminal_progress.png)
-
-**Sample Excel output:**
-![Excel output](assets/output_preview.png)
 
 ## Runtime controls
 
