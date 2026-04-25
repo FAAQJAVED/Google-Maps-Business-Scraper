@@ -86,6 +86,14 @@ Results are saved to `output/MapsScrape_<query>_<location>_<date>.csv`.
 
 ---
 
+## Preview
+
+**Live scraping progress:**
+![Terminal progress](assets/terminal_progress.png)
+
+**Sample Excel output:**
+![Excel output](assets/output_preview.png)
+
 ## Runtime controls
 
 While the scraper is running you can control it without stopping it:
