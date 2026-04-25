@@ -41,7 +41,7 @@ scraper_profile/
 
 # File-based control interface
 command.txt
-
+PROJECT_CONTEXT.md
 # ── IDE / OS ──────────────────────────────────────────────────────────────────
 .vscode/
 .idea/
