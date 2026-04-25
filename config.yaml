@@ -17,10 +17,10 @@
 # ══════════════════════════════════════════════════════════════════════════════
 
 search:
-  query: "property managers"     # ★ What to search for
+  query: ""     # ★ What to search for
                                  #   e.g. "dentists" | "italian restaurants" | "solicitors"
                                  #        "emergency plumbers" | "chartered accountants"
-  location: "Manchester"         # ★ City or area  — e.g. "Manchester" or "Chicago"
+  location: ""         # ★ City or area  — e.g. "Manchester" or "Chicago"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
