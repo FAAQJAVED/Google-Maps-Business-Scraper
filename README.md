@@ -1,3 +1,8 @@
+[![CI](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/tests-69%20passing-brightgreen)](tests/)
+
 # Google Maps Business Scraper
 
 Headless Google Maps business scraper with parallel email enrichment, atomic resume checkpointing, and configurable phone/postcode validation — built for any business type, any country, overnight multi-zone lead generation.
