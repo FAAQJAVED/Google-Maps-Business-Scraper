@@ -27,7 +27,7 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 
 ---
 
-##Preview
+## Preview
 
 ![Terminal progress](Assets/terminal_progress.png)
 ![Excel output](Assets/output_preview.png)
