@@ -36,12 +36,12 @@ maps-scraper = "maps_scraper:main"
 
 [project.urls]
 # TODO: update this URL before publishing
-Homepage   = "https://github.com/your-github-username/google-maps-scraper"
+Homepage   = "https://github.com/FAAQJAVED/google-maps-scraper"
 # TODO: update this URL before publishing
-Repository = "https://github.com/your-github-username/google-maps-scraper"
+Repository = "https://github.com/FAAQJAVED/google-maps-scraper"
 # TODO: update this URL before publishing
-Issues     = "https://github.com/your-github-username/google-maps-scraper/issues"
-Changelog  = "https://github.com/yourusername/google-maps-scraper/blob/main/CHANGELOG.md"
+Issues     = "https://github.com/FAAQJAVED/google-maps-scraper/issues"
+Changelog  = "https://github.com/FAAQJAVED/google-maps-scraper/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
