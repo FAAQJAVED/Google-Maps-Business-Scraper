@@ -10,5 +10,6 @@ requests>=2.31.0,<3.0
 PyYAML>=6.0.1,<7.0
 urllib3>=2.0.0,<3.0
 
-# OPTIONAL — Excel output (only needed if output.format = "excel")
-# openpyxl>=3.1.0
+# Excel output (openpyxl is included in the standard install command;
+# listed here so pip install -r requirements.txt covers all features)
+openpyxl>=3.1.0
