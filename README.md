@@ -1,9 +1,9 @@
+# Google Maps Business Scraper
+
 [![CI](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](tests/)
-
-# Google Maps Business Scraper
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://claude.ai/chat/LICENSE)
+[![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](https://claude.ai/chat/tests/)
 
 Headless Google Maps business scraper with parallel email enrichment, atomic resume checkpointing, and configurable phone/postcode validation — built for any business type, any country, overnight multi-zone lead generation.
 
@@ -19,23 +19,23 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 
 ## Use cases
 
-| Market | Example query | Country |
-|---|---|---|
-| Property management | `property managers` | UK, US, Australia |
-| Dental practices | `dentists near me` | UK, US, Germany |
-| Restaurants | `italian restaurants` | Any |
-| Legal services | `solicitors` / `attorneys` | UK / US |
-| Plumbers | `emergency plumbers` | Any |
-| Accountants | `chartered accountants` | UK, Australia |
-| Gyms & fitness | `personal trainers` | Any |
-| Estate agents | `real estate agents` | US, Australia |
+| Market              | Example query                | Country           |
+| ------------------- | ---------------------------- | ----------------- |
+| Property management | `property managers`        | UK, US, Australia |
+| Dental practices    | `dentists near me`         | UK, US, Germany   |
+| Restaurants         | `italian restaurants`      | Any               |
+| Legal services      | `solicitors`/`attorneys` | UK / US           |
+| Plumbers            | `emergency plumbers`       | Any               |
+| Accountants         | `chartered accountants`    | UK, Australia     |
+| Gyms & fitness      | `personal trainers`        | Any               |
+| Estate agents       | `real estate agents`       | US, Australia     |
 
 ---
 
 ## Preview
 
-![Terminal progress](Assets/terminal_progress.png)
-![Excel output](Assets/output_preview.png)
+![Terminal progress](https://claude.ai/chat/Assets/terminal_progress.png)
+![Excel output](https://claude.ai/chat/Assets/output_preview.png)
 
 ---
 
@@ -44,7 +44,7 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 ### 1. Install dependencies
 
 ```bash
-pip install playwright requests pyyaml
+pip install playwright requests pyyaml openpyxl
 playwright install chromium
 ```
 
@@ -86,29 +86,28 @@ Results are saved to `output/MapsScrape_<query>_<location>_<date>.csv`.
 
 ## All flags
 
-| Flag | Description |
-|---|---|
-| `--mode city` | Single-query search (default) |
-| `--mode mega` | One query per zone — massively more results |
-| `--config PATH` | Use a different config file |
-| `--fresh` | Clear checkpoint, start from scratch |
-| `--login` | Open browser visibly to sign in to Google before scraping |
-| `--dry-run` | Preview all job queries without opening a browser |
-| `--stats` | Print statistics from the existing output file |
+| Flag              | Description                                               |
+| ----------------- | --------------------------------------------------------- |
+| `--mode city`   | Single-query search (default)                             |
+| `--mode mega`   | One query per zone — massively more results              |
+| `--config PATH` | Use a different config file                               |
+| `--fresh`       | Clear checkpoint, start from scratch                      |
+| `--login`       | Open browser visibly to sign in to Google before scraping |
+| `--dry-run`     | Preview all job queries without opening a browser         |
+| `--stats`       | Print statistics from the existing output file            |
 
 ---
-
 
 ## Runtime controls
 
 While the scraper is running you can control it without stopping it:
 
-| Action | Keyboard | File |
-|---|---|---|
-| Pause | `P` | `echo pause > command.txt` |
-| Resume | `R` | `echo resume > command.txt` |
-| Quit cleanly | `Q` | `echo stop > command.txt` |
-| Status | `S` | — |
+| Action       | Keyboard | File                          |
+| ------------ | -------- | ----------------------------- |
+| Pause        | `P`    | `echo pause > command.txt`  |
+| Resume       | `R`    | `echo resume > command.txt` |
+| Quit cleanly | `Q`    | `echo stop > command.txt`   |
+| Status       | `S`    | —                            |
 
 The scraper saves a checkpoint after every completed zone. If you stop it (or it crashes), just re-run the same command to resume from where it left off.
 
@@ -146,6 +145,7 @@ geography:
 ```
 
 Run with:
+
 ```bash
 python maps_scraper.py --mode mega
 ```
@@ -158,42 +158,42 @@ Use `--dry-run` first to see all the queries that will be executed.
 
 All keys with their defaults:
 
-| Key | Default | Description |
-|---|---|---|
-| `search.query` | *(required)* | What to search for |
-| `search.location` | *(required)* | City or area |
-| `phone.country_code` | `"44"` | Dialing code without + |
-| `phone.valid_prefixes` | `[see config]` | Accepted local prefixes |
-| `phone.valid_lengths` | `[10, 11]` | Accepted digit counts |
-| `phone.preferred_prefix` | `""` | Prefer this prefix if multiple phones found |
+| Key                        | Default          | Description                                 |
+| -------------------------- | ---------------- | ------------------------------------------- |
+| `search.query`           | *(required)*   | What to search for                          |
+| `search.location`        | *(required)*   | City or area                                |
+| `phone.country_code`     | `"44"`         | Dialing code without +                      |
+| `phone.valid_prefixes`   | `[see config]` | Accepted local prefixes                     |
+| `phone.valid_lengths`    | `[10, 11]`     | Accepted digit counts                       |
+| `phone.preferred_prefix` | `""`           | Prefer this prefix if multiple phones found |
 
 Common country phone configs:
 
-| Country | `country_code` | `valid_lengths` | `valid_prefixes` |
-|---|---|---|---|
-| UK | `"44"` | `[10, 11]` | `["01","02","03","07"]` (see config for full list) |
-| US | `"1"` | `[10]` | `[]` (accept all — filter by length) |
-| Germany | `"49"` | `[10, 11, 12]` | `["015","016","017","030","040","089"]` |
-| Australia | `"61"` | `[9, 10]` | `["02","03","04","07","08"]` |
-| France | `"33"` | `[9, 10]` | `["01","02","03","04","05","06","07","09"]` |
-| `geography.lat_min/max/lng_min/max` | `0.0` | Bounding box (0 = disabled) |
-| `geography.region_zones` | `[]` | Zone list for mega mode |
-| `geography.valid_postcode_prefixes` | `[]` | Postcode whitelist |
-| `classification.keywords` | `{}` | Category labels and keyword lists |
-| `performance.headless` | `true` | Invisible browser (faster) |
-| `performance.browser_channel` | `"chrome"` | `"chrome"` or `"chromium"` |
-| `performance.scroll_pause` | `1.5` | Seconds between scroll actions |
-| `performance.slow_connection_wait` | `25` | Seconds to wait per stall |
-| `performance.max_stalls` | `5` | Stall periods before end-of-results |
-| `performance.fetch_threads` | `15` | Parallel enrichment workers |
-| `performance.browser_restart_every` | `300` | Zones between browser restarts |
-| `scheduling.stop_at` | `null` | Auto-stop at HH:MM (24-hour, zero-padded) |
-| `scheduling.disk_min_mb` | `500` | Pause if disk space below this (MB) |
-| `output.format` | `"csv"` | `"csv"` or `"excel"` |
-| `output.directory` | `"output"` | Output folder (auto-created) |
-| `stealth.proxies` | `[]` | Proxy list — see `docs/proxy_guide.md` |
-| `stealth.rotate_every` | `10` | Rotate proxy every N queries (0 = on failure only) |
-| `captcha.human_solve` | `true` | Pause on captcha for manual solve |
+| Country                               | `country_code` | `valid_lengths`                                  | `valid_prefixes`                                  |
+| ------------------------------------- | ---------------- | -------------------------------------------------- | --------------------------------------------------- |
+| UK                                    | `"44"`         | `[10, 11]`                                       | `["01","02","03","07"]`(see config for full list) |
+| US                                    | `"1"`          | `[10]`                                           | `[]`(accept all — filter by length)              |
+| Germany                               | `"49"`         | `[10, 11, 12]`                                   | `["015","016","017","030","040","089"]`           |
+| Australia                             | `"61"`         | `[9, 10]`                                        | `["02","03","04","07","08"]`                      |
+| France                                | `"33"`         | `[9, 10]`                                        | `["01","02","03","04","05","06","07","09"]`       |
+| `geography.lat_min/max/lng_min/max` | `0.0`          | Bounding box (0 = disabled)                        |                                                     |
+| `geography.region_zones`            | `[]`           | Zone list for mega mode                            |                                                     |
+| `geography.valid_postcode_prefixes` | `[]`           | Postcode whitelist                                 |                                                     |
+| `classification.keywords`           | `{}`           | Category labels and keyword lists                  |                                                     |
+| `performance.headless`              | `true`         | Invisible browser (faster)                         |                                                     |
+| `performance.browser_channel`       | `"chrome"`     | `"chrome"`or `"chromium"`                      |                                                     |
+| `performance.scroll_pause`          | `1.5`          | Seconds between scroll actions                     |                                                     |
+| `performance.slow_connection_wait`  | `25`           | Seconds to wait per stall                          |                                                     |
+| `performance.max_stalls`            | `5`            | Stall periods before end-of-results                |                                                     |
+| `performance.fetch_threads`         | `15`           | Parallel enrichment workers                        |                                                     |
+| `performance.browser_restart_every` | `300`          | Zones between browser restarts                     |                                                     |
+| `scheduling.stop_at`                | `null`         | Auto-stop at HH:MM (24-hour, zero-padded)          |                                                     |
+| `scheduling.disk_min_mb`            | `500`          | Pause if disk space below this (MB)                |                                                     |
+| `output.format`                     | `"csv"`        | `"csv"`or `"excel"`                            |                                                     |
+| `output.directory`                  | `"output"`     | Output folder (auto-created)                       |                                                     |
+| `stealth.proxies`                   | `[]`           | Proxy list — see `docs/proxy_guide.md`          |                                                     |
+| `stealth.rotate_every`              | `10`           | Rotate proxy every N queries (0 = on failure only) |                                                     |
+| `captcha.human_solve`               | `true`         | Pause on captcha for manual solve                  |                                                     |
 
 ---
 
@@ -201,11 +201,11 @@ Common country phone configs:
 
 **`headless: true` is the recommended setting** (and the default). Contrary to a common assumption, headless Chrome is *not* more likely to be detected and blocked by Google Maps. The scraper:
 
-- Removes the `navigator.webdriver` flag via an init script
-- Disables the automation banner (`--disable-blink-features=AutomationControlled`)
-- Rotates User-Agent strings across 7 real browser fingerprints
-- Rotates viewport sizes
-- Blocks tracking/analytics resources to reduce load time
+* Removes the `navigator.webdriver` flag via an init script
+* Disables the automation banner (`--disable-blink-features=AutomationControlled`)
+* Rotates User-Agent strings across 7 real browser fingerprints
+* Rotates viewport sizes
+* Blocks tracking/analytics resources to reduce load time
 
 The only reason to run with `headless: false` is debugging, or the `--login` flow.
 
@@ -223,19 +223,19 @@ The browser opens visibly, you sign in once, press Enter, then it runs headlessl
 
 ## Output columns
 
-| Column | Description |
-|---|---|
+| Column       | Description                                    |
+| ------------ | ---------------------------------------------- |
 | Company Name | Business trading name (pipe-suffixes stripped) |
-| Phone | Cleaned local number (country code stripped) |
-| Email | Contact email from the business's website |
-| Website | Website URL from the Maps listing |
-| Postcode | Extracted from address |
-| Category | Keyword-classified label (or "Other") |
-| Rating | Google Maps star rating |
-| Address | Full address string |
-| Email Status | `found` or `notfound` |
-| Phone Status | `found` or `notfound` |
-| Source | Always `Google Maps` |
+| Phone        | Cleaned local number (country code stripped)   |
+| Email        | Contact email from the business's website      |
+| Website      | Website URL from the Maps listing              |
+| Postcode     | Extracted from address                         |
+| Category     | Keyword-classified label (or "Other")          |
+| Rating       | Google Maps star rating                        |
+| Address      | Full address string                            |
+| Email Status | `found`or `notfound`                       |
+| Phone Status | `found`or `notfound`                       |
+| Source       | Always `Google Maps`                         |
 
 ---
 
@@ -243,10 +243,10 @@ The browser opens visibly, you sign in once, press Enter, then it runs headlessl
 
 Typical figures on a standard broadband connection (no proxy):
 
-| Mode | Result set | Time |
-|---|---|---|
-| City | 60-120 results | 8-15 min |
-| Mega (20 zones) | 500-900 results | 2-4 hours |
+| Mode             | Result set        | Time       |
+| ---------------- | ----------------- | ---------- |
+| City             | 60-120 results    | 8-15 min   |
+| Mega (20 zones)  | 500-900 results   | 2-4 hours  |
 | Mega (100 zones) | 2000-5000 results | 8-20 hours |
 
 Enrichment runs in parallel (15 threads by default). The biggest time cost is Maps extraction (~4-5 seconds per place), not enrichment.
@@ -268,7 +268,7 @@ scraper/
   storage.py             # CSV/Excel output, checkpoint, done-queries log
   utils.py               # phone cleaning, disk check, stop_at, beep, backoff
 tests/
-  test_scraper.py        # 130+ unit tests, all pure-function (no browser needed)
+  test_scraper.py        # 122 unit tests, all pure-function (no browser needed)
 docs/
   proxy_guide.md         # proxy setup and formatting
 output/                  # results saved here (auto-created)
@@ -290,31 +290,36 @@ All tests are pure-function and run in under 3 seconds with no browser or intern
 
 ## Requirements
 
-- Python 3.10+
-- See `requirements.txt` for full list
-- Google Chrome installed (optional but recommended over Playwright Chromium)
-- For Excel output: `pip install openpyxl`
+* Python 3.10+
+* See `requirements.txt` for full list
+* Google Chrome installed (optional but recommended over Playwright Chromium)
 
 ---
 
 ## Troubleshooting
 
-**Getting fewer results than expected?**  
+**Getting fewer results than expected?**
+
 Increase `max_stalls` in `config.yaml` (try 7-8) and `slow_connection_wait` to 35. Large result sets on slow connections can stall between card batches.
 
-**Phone numbers look wrong (missing leading zero, or have country code)?**  
+**Phone numbers look wrong (missing leading zero, or have country code)?**
+
 Set `phone.country_code: "44"` and `phone.valid_lengths: [10, 11]` in `config.yaml`.
 
-**Browser won't launch?**  
+**Browser won't launch?**
+
 Set `browser_channel: "chromium"` in `config.yaml` to use Playwright's built-in browser instead of Google Chrome.
 
-**Captcha appearing frequently?**  
+**Captcha appearing frequently?**
+
 Use the `--login` flag to sign in to a Google account. Authenticated sessions almost never hit captchas.
 
-**Email column shows agency emails across multiple businesses?**  
+**Email column shows agency emails across multiple businesses?**
+
 Add the agency domain to `filters.junk_email_domains` in `config.yaml`.
 
-**Running outside the UK?**  
+**Running outside the UK?**
+
 Set `phone.country_code` to your country's dialing code and update `valid_prefixes` and `valid_lengths` accordingly. See the phone config table above for common country examples.
 
 ---
@@ -329,9 +334,9 @@ Previously, when a business website was completely unreachable (dead SSL certifi
 
 The enricher now classifies every fetch failure:
 
-- **Connection-level errors** (SSL, ConnectionReset, ConnectTimeout): the entire domain is bailed immediately — subpaths are guaranteed to fail identically.
-- **Read timeouts**: one further attempt is allowed (a later path may succeed, as confirmed in testing). If a second consecutive read timeout occurs, the domain is bailed.
-- **4xx status codes**: treated as "path not found" — the loop continues to the next path normally.
+* **Connection-level errors** (SSL, ConnectionReset, ConnectTimeout): the entire domain is bailed immediately — subpaths are guaranteed to fail identically.
+* **Read timeouts** : one further attempt is allowed (a later path may succeed, as confirmed in testing). If a second consecutive read timeout occurs, the domain is bailed.
+* **4xx status codes** : treated as "path not found" — the loop continues to the next path normally.
 
 Typical saving: 8–32 seconds per unreachable domain, which adds up significantly on large overnight runs.
 
@@ -343,13 +348,13 @@ A new Stage 0 decodes these XOR-encoded addresses *before* the existing four pla
 
 The email pipeline is now a 5-stage pipeline:
 
-| Stage | Source | Signal |
-|---|---|---|
-| 0 | Cloudflare XOR (`data-cfemail`, `cdn-cgi` hrefs) | Very high |
-| 1 | `mailto:` hrefs | High |
-| 2 | `data-email` attributes (WordPress/Elementor) | High |
-| 3 | `[at]`/`(at)` obfuscation variants | Medium |
-| 4 | Plain regex on entity-decoded HTML | Low |
+| Stage | Source                                             | Signal    |
+| ----- | -------------------------------------------------- | --------- |
+| 0     | Cloudflare XOR (`data-cfemail`,`cdn-cgi`hrefs) | Very high |
+| 1     | `mailto:`hrefs                                   | High      |
+| 2     | `data-email`attributes (WordPress/Elementor)     | High      |
+| 3     | `[at]`/`(at)`obfuscation variants              | Medium    |
+| 4     | Plain regex on entity-decoded HTML                 | Low       |
 
 ### Smart contact page discovery
 
@@ -390,6 +395,21 @@ python dedupe_tool.py file1.csv file2.csv --key "Name,Phone"
 **Subtract mode** (`--subtract`) — loads a second file and removes any rows from the merged output whose key matches a row in the subtract file. Useful for removing overlap between a freshly scraped list and a block-management or existing-client list.
 
 The output is always a UTF-8 CSV saved to `output/merged_YYYYMMDD_HHMMSS.csv` by default, or to the path given by `--output`.
+
+---
+
+## Part of the B2B Lead Toolkit
+
+This scraper is one component of a broader B2B lead generation pipeline targeting UK property management companies, letting agents, block managers, and HMO landlords.
+
+| Repo                                                                                                               | What it does                                                |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| **[Google Maps Business Scraper](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)**←*you are here* | Extracts and enriches business listings from Google Maps    |
+| **[Email Phone Enrichment Tool](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool)**              | Scrapes contact emails and phones from company websites     |
+| **[Leadhunter Pro](https://github.com/FAAQJAVED/Leadhunter_Pro)**                                               | Multi-engine search scraper with HOT/WARM/COLD lead scoring |
+| **[Trustpilot Business Scraper](https://github.com/FAAQJAVED/trustpilot-business-scraper)**                     | Extracts business listings from Trustpilot search results   |
+
+All four tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
 
 ---
 
