@@ -34,8 +34,8 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 
 ## Preview
 
-![Terminal progress](https://claude.ai/chat/Assets/terminal_progress.png)
-![Excel output](https://claude.ai/chat/Assets/output_preview.png)
+![Terminal progress](Assets/terminal_progress.png)
+![Excel output](Assets/output_preview.png)
 
 ---
 
