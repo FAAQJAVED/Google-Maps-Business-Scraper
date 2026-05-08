@@ -1,6 +1,5 @@
+# Google Maps Business Scraper
 
-<<<<<<< HEAD
-=======
 [![CI](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://claude.ai/chat/LICENSE)
@@ -35,8 +34,8 @@ Headless Google Maps business scraper with parallel email enrichment, atomic res
 
 ## Preview
 
-![Terminal progress](Assets/terminal_progress.png)
-![Excel output](Assets/output_preview.png)
+![Terminal progress](https://claude.ai/chat/Assets/terminal_progress.png)
+![Excel output](https://claude.ai/chat/Assets/output_preview.png)
 
 ---
 
@@ -417,4 +416,3 @@ All four tools share the same Excel output schema (Data + Summary sheets) — re
 ## Disclaimer
 
 This tool is for personal research and lead generation only. Check Google's Terms of Service before use. Rate-limit your requests using `scroll_pause` and `request_delay` to be respectful of their infrastructure.
->>>>>>> 9dec23c3ed281d4b72b76c5afb9cbee0dc1aa1d2
