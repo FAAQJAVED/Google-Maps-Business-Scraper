@@ -8,10 +8,12 @@ on:
 
 jobs:
   test:
-    name: Tests — Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
+    name: "Tests — Python ${{ matrix.python-version }} · ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest]
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
@@ -28,15 +30,10 @@ jobs:
           pip install -r requirements.txt -r requirements-dev.txt
 
       - name: Run tests
-        run: pytest tests/ -v --tb=short
+        run: pytest tests/ -v --tb=short --cov=scraper --cov=maps_scraper --cov-report=term-missing --cov-report=xml
 
       - name: Check import health
         run: python -c "from scraper.config import load_config; from scraper.browser import ProxyManager; from scraper.storage import append_rows; print('imports OK')"
-
-      - name: Coverage report
-        run: |
-          pip install pytest-cov
-          pytest tests/ --cov=scraper --cov=maps_scraper --cov-report=term-missing --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
