@@ -4,6 +4,7 @@
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](tests/)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)
 
 Headless Google Maps business scraper with parallel email enrichment, atomic resume checkpointing, and configurable phone/postcode validation — built for any business type, any country, overnight multi-zone lead generation.
 
@@ -409,3 +410,9 @@ All four tools share the same Excel output schema (Data + Summary sheets) — re
 ## Disclaimer
 
 This tool is for personal research and lead generation only. Check Google's Terms of Service before use. Rate-limit your requests using `scroll_pause` and `request_delay` to be respectful of their infrastructure.
+
+---
+
+## License
+
+MIT © 2026 [FAAQJAVED](https://github.com/FAAQJAVED) — see [LICENSE](LICENSE)
