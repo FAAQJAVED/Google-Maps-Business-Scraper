@@ -7,7 +7,6 @@ Thank you for considering a contribution. Here is everything you need to know.
 ## Quick start
 
 ```bash
-# TODO: update this URL before publishing
 git clone https://github.com/your-github-username/google-maps-scraper.git
 cd google-maps-scraper
 pip install -r requirements-dev.txt
@@ -18,7 +17,6 @@ pytest tests/ -v          # all tests must pass before you open a PR
 
 ## What to work on
 
-# TODO: update this URL before publishing
 Check the [Issues](https://github.com/FAAQJAVED/google-maps-scraper/issues) tab.
 Issues labelled **good first issue** are well-scoped starting points.
 
