@@ -535,7 +535,7 @@ class ScraperSession:
             except Exception:
                 pass
         finally:
-            pw.__exit__(None, None, None)
+            pw.stop()
  
         self.ctrl.stop_listening()
         self._print_summary()
