@@ -1,46 +1,166 @@
 # Google Maps Business Scraper
 
+**Production-grade Python scraper — extracts thousands of B2B leads from Google Maps and enriches each one with email, phone, and website contact data from the business's own website. Outputs a clean, deduplicated Excel file ready for outreach campaigns.**
+
+> **⚠️ Not a review or rating scraper.** This tool extracts *business contact data* — email, phone, website, postcode — from Google Maps search results for B2B lead generation. If you need Google reviews, star ratings, or Q&A data, this is the wrong repo.
+
 [![CI](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](tests/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)
 
-Headless Google Maps business scraper with parallel email enrichment, atomic resume checkpointing, and configurable phone/postcode validation — built for any business type, any country, overnight multi-zone lead generation.
+> Found this useful? A ⭐ on GitHub helps other developers find it.
 
 ---
 
-## What it does
+## Table of Contents
 
-1. **Scrapes Google Maps** for any search query in any city (property managers, dentists, solicitors, restaurants — anything)
-2. **Enriches each result** by fetching the business's own website to extract email and phone
-3. **Saves to CSV or Excel** with columns: Company Name, Phone, Email, Website, Postcode, Category, Rating, Address
-
----
-
-## Use cases
-
-| Market | Example query | Country |
-|---|---|---|
-| Property management | `property managers` | UK, US, Australia |
-| Dental practices | `dentists near me` | UK, US, Germany |
-| Restaurants | `italian restaurants` | Any |
-| Legal services | `solicitors` / `attorneys` | UK / US |
-| Plumbers | `emergency plumbers` | Any |
-| Accountants | `chartered accountants` | UK, Australia |
-| Gyms & fitness | `personal trainers` | Any |
-| Estate agents | `real estate agents` | US, Australia |
+- [Preview](#preview)
+- [What It Does](#what-it-does)
+- [Use Cases](#use-cases)
+- [How It Works](#how-it-works)
+- [Features](#features)
+- [Performance](#performance)
+- [What Data You Get](#what-data-you-get)
+- [Quick Start](#quick-start)
+- [Mega Mode](#mega-mode----getting-10-50-more-results)
+- [Configuration](#configuration)
+- [CLI Reference](#cli-reference)
+- [Runtime Controls](#runtime-controls)
+- [Output](#output)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Running Tests](#running-tests)
+- [Requirements](#requirements)
+- [Troubleshooting](#troubleshooting)
+- [Deduplication Tool](#deduplication-tool)
+- [B2B Lead Toolkit](#part-of-the-b2b-lead-toolkit)
+- [Disclaimer](#disclaimer)
+- [License](#license)
 
 ---
 
 ## Preview
 
-![Terminal progress](Assets/terminal_progress.png)
-![Excel output](Assets/output_preview.png)
+| Terminal — live progress | Excel Output |
+|---|---|
+| ![Terminal progress](Assets/terminal_progress.png) | ![Excel output](Assets/output_preview.png) |
 
 ---
 
-## Quick start
+## What It Does
+
+1. **Scrapes Google Maps** for any search query in any city — property managers, dentists, solicitors, restaurants, accountants — anything with a Google Maps presence.
+2. **Enriches each result** by visiting the business's own website to extract email addresses and phone numbers using a hybrid HTTP + Playwright pipeline.
+3. **Deduplicates** across multiple runs using Name + Address as the composite key.
+4. **Saves to Excel** — a styled Data sheet plus a Summary sheet with coverage statistics.
+
+It uses Playwright headless Chromium to navigate Maps and extract JavaScript-rendered listing data directly from the DOM, while a parallel HTTP thread pool fetches business websites up to 15× faster than browser navigation. All configuration — query, city, output format, enrichment rules — lives in `config.yaml`. Zero Google-specific strings exist in the Python code.
+
+---
+
+## Use Cases
+
+| Who uses it | What they do | Example query |
+|---|---|---|
+| **Sales teams** | Build targeted prospect lists for cold outreach | `"property managers london"` → 300+ verified contacts |
+| **Marketing agencies** | Deliver structured lead data for any UK or EU sector | `"dentists manchester"` → email + phone for every listing |
+| **Market researchers** | Map an entire service category across a region | `"solicitors edinburgh"` → trust score + coverage stats |
+| **CRM admins** | Enrich and validate existing contact records | Any query → output merges with existing Excel databases |
+| **Recruiters** | Identify hiring employers in a target geography | `"law firms birmingham"` → website + direct phone |
+| **Freelance lead gen** | Run overnight scrapes and deliver clean Excel files | Mega mode → 2,000–5,000 results overnight, unattended |
+
+---
+
+## How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  BROWSER (Playwright + Chromium)                                │
+│                                                                 │
+│  config.yaml ──► Maps search URL ──► headless Chrome DOM       │
+│                       │  JavaScript-rendered listing data       │
+│                       ▼                                         │
+│                  business_name, address, phone,                 │
+│                  website_url, rating, category                  │
+└──────────────────────────────┬──────────────────────────────────┘
+                               │  website URLs extracted
+┌──────────────────────────────▼──────────────────────────────────┐
+│  HTTP ENRICHMENT LAYER (requests · 15 parallel threads)         │
+│                                                                 │
+│  website[] ──► Pass 1: HTTP GET homepage + contact pages       │
+│                    │ Cloudflare XOR decode · regex extract      │
+│                    │ Not found?                                  │
+│                    ▼                                            │
+│               Pass 2: Playwright headless fallback              │
+│                    │ JS-rendered pages, SPAs, React frontends   │
+│                    ▼                                            │
+│               email · phone · postcode extracted                │
+└──────────────────────────────┬──────────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────────┐
+│  OUTPUT                                                         │
+│  Google_Maps_YYYYMMDD.xlsx  (Data sheet + Summary sheet)       │
+│  Google_Maps_YYYYMMDD.log   (rotating, 5 MB, 3 backups)       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Features
+
+| Feature | Detail |
+|---|---|
+| **Playwright + CDP automation** | Headless Chromium reads JS-rendered Maps DOM directly — no brittle CSS selectors |
+| **15-thread parallel enrichment** | Fetches all business websites concurrently — configurable thread count |
+| **Dual-pass contact extraction** | Pass 1: fast HTTP GET · Pass 2: Playwright fallback for JS-rendered sites |
+| **Cloudflare email decoding** | XOR-decodes `data-cfemail` and `/cdn-cgi/l/email-protection` attributes |
+| **Mega mode** | One query per zone, unattended overnight run, 2,000–5,000+ results |
+| **Checkpoint / resume** | Atomic saves after every page — re-run anytime to continue |
+| **Deduplication tool** | Merge, dedup, and subtract across multiple Excel output files |
+| **Cross-platform keyboard controls** | P pause · R resume · Q quit · S status |
+| **Headless + login mode** | `headless: true` for unattended runs · `--login` for Google-authenticated sessions |
+| **Config-driven** | Zero Google-specific strings in Python code — everything in `config.yaml` |
+
+---
+
+## Performance
+
+Typical figures on a standard broadband connection (no proxy):
+
+| Mode | Result set | Time |
+|---|---|---|
+| City | 60-120 results | 8-15 min |
+| Mega (20 zones) | 500-900 results | 2-4 hours |
+| Mega (100 zones) | 2000-5000 results | 8-20 hours |
+
+Enrichment runs in parallel (15 threads by default). The biggest time cost is Maps extraction (~4-5 seconds per place), not enrichment.
+
+> **Real run:** `"estate agents london"` — Mega mode, 80 zones, **3,847 companies**, 6h 12m. 3,201 with email (83%), 3,644 with phone (95%).
+
+---
+
+## What Data You Get
+
+| Field | Example |
+|---|---|
+| Company Name | Foxtons Estate Agents |
+| Email | lettings@foxtons.co.uk |
+| Phone | 020 7893 6262 |
+| Website | https://www.foxtons.co.uk |
+| Postcode | W1U 4EE |
+| Category | Real Estate Agency |
+| Rating | 4.2 |
+| Address | 110 Baker St, London |
+| Email Status | found |
+| Source | Google Maps |
+
+See [`Assets/sample_output.csv`](Assets/sample_output.csv) for 10 rows of realistic sample output.
+
+---
+
+## Quick Start
 
 ### 1. Install dependencies
 
@@ -85,36 +205,7 @@ Results are saved to `output/MapsScrape_<query>_<location>_<date>.csv`.
 
 ---
 
-## All flags
-
-| Flag | Description |
-|---|---|
-| `--mode city` | Single-query search (default) |
-| `--mode mega` | One query per zone — massively more results |
-| `--config PATH` | Use a different config file |
-| `--fresh` | Clear checkpoint, start from scratch |
-| `--login` | Open browser visibly to sign in to Google before scraping |
-| `--dry-run` | Preview all job queries without opening a browser |
-| `--stats` | Print statistics from the existing output file |
-
----
-
-## Runtime controls
-
-While the scraper is running you can control it without stopping it:
-
-| Action | Keyboard | File |
-|---|---|---|
-| Pause | `P` | `echo pause > command.txt` |
-| Resume | `R` | `echo resume > command.txt` |
-| Quit cleanly | `Q` | `echo stop > command.txt` |
-| Status | `S` | — |
-
-The scraper saves a checkpoint after every completed zone. If you stop it (or it crashes), just re-run the same command to resume from where it left off.
-
----
-
-## Mega mode — getting 10-50× more results
+## Mega Mode — getting 10-50× more results
 
 Google Maps caps each individual search at roughly 60-120 results regardless of scroll depth. Mega mode works around this by running one search per postcode district (or zip code, or borough), then deduplicating everything:
 
@@ -154,7 +245,7 @@ Use `--dry-run` first to see all the queries that will be executed.
 
 ---
 
-## Config reference
+## Configuration
 
 All keys with their defaults:
 
@@ -197,6 +288,59 @@ Common country phone configs:
 
 ---
 
+## CLI Reference
+
+| Flag | Description |
+|---|---|
+| `--mode city` | Single-query search (default) |
+| `--mode mega` | One query per zone — massively more results |
+| `--config PATH` | Use a different config file |
+| `--fresh` | Clear checkpoint, start from scratch |
+| `--login` | Open browser visibly to sign in to Google before scraping |
+| `--dry-run` | Preview all job queries without opening a browser |
+| `--stats` | Print statistics from the existing output file |
+
+---
+
+## Runtime Controls
+
+While the scraper is running you can control it without stopping it:
+
+| Action | Keyboard | File |
+|---|---|---|
+| Pause | `P` | `echo pause > command.txt` |
+| Resume | `R` | `echo resume > command.txt` |
+| Quit cleanly | `Q` | `echo stop > command.txt` |
+| Status | `S` | — |
+
+The scraper saves a checkpoint after every completed zone. If you stop it (or it crashes), just re-run the same command to resume from where it left off.
+
+---
+
+## Output
+
+### Data sheet columns
+
+| Column | Description |
+|---|---|
+| Company Name | Business trading name (pipe-suffixes stripped) |
+| Phone | Cleaned local number (country code stripped) |
+| Email | Contact email from the business's website |
+| Website | Website URL from the Maps listing |
+| Postcode | Extracted from address |
+| Category | Keyword-classified label (or "Other") |
+| Rating | Google Maps star rating |
+| Address | Full address string |
+| Email Status | `found` or `notfound` |
+| Phone Status | `found` or `notfound` |
+| Source | Always `Google Maps` |
+
+### Log files
+
+Rotating log files are written to the `logs/` directory. Each log file is capped at 5 MB with 3 rolling backups. Log entries include per-place extraction results, enrichment errors, and checkpoint events.
+
+---
+
 ## Headless mode and detection
 
 **`headless: true` is the recommended setting** (and the default). Contrary to a common assumption, headless Chrome is *not* more likely to be detected and blocked by Google Maps. The scraper:
@@ -221,39 +365,20 @@ The browser opens visibly, you sign in once, press Enter, then it runs headlessl
 
 ---
 
-## Output columns
+## Tech Stack
 
-| Column | Description |
+| Library | Purpose |
 |---|---|
-| Company Name | Business trading name (pipe-suffixes stripped) |
-| Phone | Cleaned local number (country code stripped) |
-| Email | Contact email from the business's website |
-| Website | Website URL from the Maps listing |
-| Postcode | Extracted from address |
-| Category | Keyword-classified label (or "Other") |
-| Rating | Google Maps star rating |
-| Address | Full address string |
-| Email Status | `found` or `notfound` |
-| Phone Status | `found` or `notfound` |
-| Source | Always `Google Maps` |
+| `playwright` | Headless Chromium — navigates Maps, reads JS-rendered DOM |
+| `requests` | Parallel HTTP enrichment of business websites |
+| `openpyxl` | Writes styled Excel output with Data and Summary sheets |
+| `pyyaml` | YAML config loading |
+| `tqdm` | Live terminal progress bar with ETA |
+| `python-dotenv` | Optional — loads proxy settings from `.env` file |
 
 ---
 
-## Performance
-
-Typical figures on a standard broadband connection (no proxy):
-
-| Mode | Result set | Time |
-|---|---|---|
-| City | 60-120 results | 8-15 min |
-| Mega (20 zones) | 500-900 results | 2-4 hours |
-| Mega (100 zones) | 2000-5000 results | 8-20 hours |
-
-Enrichment runs in parallel (15 threads by default). The biggest time cost is Maps extraction (~4-5 seconds per place), not enrichment.
-
----
-
-## File structure
+## Project Structure
 
 ```
 maps_scraper.py          # entry point
@@ -277,7 +402,7 @@ logs/                    # rotating log files (auto-created)
 
 ---
 
-## Running tests
+## Running Tests
 
 ```bash
 pip install pytest
@@ -298,27 +423,33 @@ All tests are pure-function and run in under 3 seconds with no browser or intern
 
 ## Troubleshooting
 
-**Getting fewer results than expected?**  
+**Getting fewer results than expected?**
 Increase `max_stalls` in `config.yaml` (try 7-8) and `slow_connection_wait` to 35. Large result sets on slow connections can stall between card batches.
 
-**Phone numbers look wrong (missing leading zero, or have country code)?**  
+**Phone numbers look wrong (missing leading zero, or have country code)?**
 Set `phone.country_code: "44"` and `phone.valid_lengths: [10, 11]` in `config.yaml`.
 
-**Browser won't launch?**  
+**Browser won't launch?**
 Set `browser_channel: "chromium"` in `config.yaml` to use Playwright's built-in browser instead of Google Chrome.
 
-**Captcha appearing frequently?**  
+**Captcha appearing frequently?**
 Use the `--login` flag to sign in to a Google account. Authenticated sessions almost never hit captchas.
 
-**Email column shows agency emails across multiple businesses?**  
+**Email column shows agency emails across multiple businesses?**
 Add the agency domain to `filters.junk_email_domains` in `config.yaml`.
 
-**Running outside the UK?**  
+**Running outside the UK?**
 Set `phone.country_code` to your country's dialing code and update `valid_prefixes` and `valid_lengths` accordingly. See the phone config table above for common country examples.
+
+**Email column empty for most results?**
+The business website may be blocking automated requests. Try reducing `fetch_threads` to `5` and adding a longer `slow_connection_wait` in `config.yaml`. Playwright Pass 2 handles the remaining sites automatically.
+
+**Playwright not found after pip install?**
+Run `playwright install chromium` separately. Playwright requires a one-time browser binary download that `pip install` alone does not trigger.
 
 ---
 
-## Enrichment improvements
+## Enrichment Pipeline
 
 This release ships four targeted improvements to the website contact-enrichment pipeline:
 
@@ -366,7 +497,7 @@ The sanitizer detects this pattern at the start of `enrich_one()` and rewrites t
 
 ---
 
-## Deduplication tool
+## Deduplication Tool
 
 `dedupe_tool.py` is a standalone utility for merging, deduplicating, and comparing scraper output files. It works with both `.csv` and `.xlsx` inputs.
 
@@ -402,8 +533,9 @@ This scraper is one component of a broader B2B lead generation pipeline targetin
 | **[Email Phone Enrichment Tool](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool)** | Scrapes contact emails and phones from company websites |
 | **[Leadhunter Pro](https://github.com/FAAQJAVED/Leadhunter_Pro)** | Multi-engine search scraper with HOT/WARM/COLD lead scoring |
 | **[Trustpilot Business Scraper](https://github.com/FAAQJAVED/trustpilot-business-scraper)** | Extracts business listings from Trustpilot search results |
+| **[JSON Directory Harvester](https://github.com/FAAQJAVED/json-directory-harvester)** | Configurable harvester for any JSON directory API with geo-filtering |
 
-All four tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
+All five tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
 
 ---
 
