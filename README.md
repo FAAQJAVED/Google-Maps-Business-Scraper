@@ -6,8 +6,8 @@
 
 [![CI](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](tests/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://claude.ai/chat/LICENSE)
+[![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](https://claude.ai/chat/tests/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)
 
 > Found this useful? A ⭐ on GitHub helps other developers find it.
@@ -16,36 +16,36 @@
 
 ## Table of Contents
 
-- [Preview](#preview)
-- [What It Does](#what-it-does)
-- [Use Cases](#use-cases)
-- [How It Works](#how-it-works)
-- [Features](#features)
-- [Performance](#performance)
-- [What Data You Get](#what-data-you-get)
-- [Quick Start](#quick-start)
-- [Mega Mode](#mega-mode----getting-10-50-more-results)
-- [Configuration](#configuration)
-- [CLI Reference](#cli-reference)
-- [Runtime Controls](#runtime-controls)
-- [Output](#output)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Running Tests](#running-tests)
-- [Requirements](#requirements)
-- [Troubleshooting](#troubleshooting)
-- [Deduplication Tool](#deduplication-tool)
-- [B2B Lead Toolkit](#part-of-the-b2b-lead-toolkit)
-- [Disclaimer](#disclaimer)
-- [License](#license)
+* [Preview](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#preview)
+* [What It Does](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#what-it-does)
+* [Use Cases](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#use-cases)
+* [How It Works](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#how-it-works)
+* [Features](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#features)
+* [Performance](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#performance)
+* [What Data You Get](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#what-data-you-get)
+* [Quick Start](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#quick-start)
+* [Mega Mode](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#mega-mode----getting-10-50-more-results)
+* [Configuration](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#configuration)
+* [CLI Reference](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#cli-reference)
+* [Runtime Controls](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#runtime-controls)
+* [Output](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#output)
+* [Tech Stack](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#tech-stack)
+* [Project Structure](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#project-structure)
+* [Running Tests](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#running-tests)
+* [Requirements](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#requirements)
+* [Troubleshooting](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#troubleshooting)
+* [Deduplication Tool](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#deduplication-tool)
+* [B2B Lead Toolkit](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#part-of-the-b2b-lead-toolkit)
+* [Disclaimer](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#disclaimer)
+* [License](https://claude.ai/chat/0c2ffaa9-a4b2-4a4a-8ba8-dcad2508d8b6#license)
 
 ---
 
 ## Preview
 
-| Terminal — live progress | Excel Output |
-|---|---|
-| ![Terminal progress](Assets/terminal_progress.png) | ![Excel output](Assets/output_preview.png) |
+| Terminal — live progress                                               | Excel Output                                                    |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------- |
+| ![Terminal progress](https://claude.ai/chat/Assets/terminal_progress.png) | ![Excel output](https://claude.ai/chat/Assets/output_preview.png) |
 
 ---
 
@@ -62,14 +62,14 @@ It uses Playwright headless Chromium to navigate Maps and extract JavaScript-ren
 
 ## Use Cases
 
-| Who uses it | What they do | Example query |
-|---|---|---|
-| **Sales teams** | Build targeted prospect lists for cold outreach | `"property managers london"` → 300+ verified contacts |
-| **Marketing agencies** | Deliver structured lead data for any UK or EU sector | `"dentists manchester"` → email + phone for every listing |
-| **Market researchers** | Map an entire service category across a region | `"solicitors edinburgh"` → trust score + coverage stats |
-| **CRM admins** | Enrich and validate existing contact records | Any query → output merges with existing Excel databases |
-| **Recruiters** | Identify hiring employers in a target geography | `"law firms birmingham"` → website + direct phone |
-| **Freelance lead gen** | Run overnight scrapes and deliver clean Excel files | Mega mode → 2,000–5,000 results overnight, unattended |
+| Who uses it                  | What they do                                         | Example query                                               |
+| ---------------------------- | ---------------------------------------------------- | ----------------------------------------------------------- |
+| **Sales teams**        | Build targeted prospect lists for cold outreach      | `"property managers london"`→ 300+ verified contacts     |
+| **Marketing agencies** | Deliver structured lead data for any UK or EU sector | `"dentists manchester"`→ email + phone for every listing |
+| **Market researchers** | Map an entire service category across a region       | `"solicitors edinburgh"`→ trust score + coverage stats   |
+| **CRM admins**         | Enrich and validate existing contact records         | Any query → output merges with existing Excel databases    |
+| **Recruiters**         | Identify hiring employers in a target geography      | `"law firms birmingham"`→ website + direct phone         |
+| **Freelance lead gen** | Run overnight scrapes and deliver clean Excel files  | Mega mode → 2,000–5,000 results overnight, unattended     |
 
 ---
 
@@ -110,18 +110,18 @@ It uses Playwright headless Chromium to navigate Maps and extract JavaScript-ren
 
 ## Features
 
-| Feature | Detail |
-|---|---|
-| **Playwright + CDP automation** | Headless Chromium reads JS-rendered Maps DOM directly — no brittle CSS selectors |
-| **15-thread parallel enrichment** | Fetches all business websites concurrently — configurable thread count |
-| **Dual-pass contact extraction** | Pass 1: fast HTTP GET · Pass 2: Playwright fallback for JS-rendered sites |
-| **Cloudflare email decoding** | XOR-decodes `data-cfemail` and `/cdn-cgi/l/email-protection` attributes |
-| **Mega mode** | One query per zone, unattended overnight run, 2,000–5,000+ results |
-| **Checkpoint / resume** | Atomic saves after every page — re-run anytime to continue |
-| **Deduplication tool** | Merge, dedup, and subtract across multiple Excel output files |
-| **Cross-platform keyboard controls** | P pause · R resume · Q quit · S status |
-| **Headless + login mode** | `headless: true` for unattended runs · `--login` for Google-authenticated sessions |
-| **Config-driven** | Zero Google-specific strings in Python code — everything in `config.yaml` |
+| Feature                                    | Detail                                                                               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------ |
+| **Playwright + CDP automation**      | Headless Chromium reads JS-rendered Maps DOM directly — no brittle CSS selectors    |
+| **15-thread parallel enrichment**    | Fetches all business websites concurrently — configurable thread count              |
+| **Dual-pass contact extraction**     | Pass 1: fast HTTP GET · Pass 2: Playwright fallback for JS-rendered sites           |
+| **Cloudflare email decoding**        | XOR-decodes `data-cfemail`and `/cdn-cgi/l/email-protection`attributes            |
+| **Mega mode**                        | One query per zone, unattended overnight run, 2,000–5,000+ results                  |
+| **Checkpoint / resume**              | Atomic saves after every page — re-run anytime to continue                          |
+| **Deduplication tool**               | Merge, dedup, and subtract across multiple Excel output files                        |
+| **Cross-platform keyboard controls** | P pause · R resume · Q quit · S status                                            |
+| **Headless + login mode**            | `headless: true`for unattended runs ·`--login`for Google-authenticated sessions |
+| **Config-driven**                    | Zero Google-specific strings in Python code — everything in `config.yaml`         |
 
 ---
 
@@ -129,34 +129,34 @@ It uses Playwright headless Chromium to navigate Maps and extract JavaScript-ren
 
 Typical figures on a standard broadband connection (no proxy):
 
-| Mode | Result set | Time |
-|---|---|---|
-| City | 60-120 results | 8-15 min |
-| Mega (20 zones) | 500-900 results | 2-4 hours |
+| Mode             | Result set        | Time       |
+| ---------------- | ----------------- | ---------- |
+| City             | 60-120 results    | 8-15 min   |
+| Mega (20 zones)  | 500-900 results   | 2-4 hours  |
 | Mega (100 zones) | 2000-5000 results | 8-20 hours |
 
 Enrichment runs in parallel (15 threads by default). The biggest time cost is Maps extraction (~4-5 seconds per place), not enrichment.
 
-> **Real run:** `"estate agents london"` — Mega mode, 80 zones, **3,847 companies**, 6h 12m. 3,201 with email (83%), 3,644 with phone (95%).
+> **Real run:** `"estate agents london"` — Mega mode, 80 zones,  **3,847 companies** , 6h 12m. 3,201 with email (83%), 3,644 with phone (95%).
 
 ---
 
 ## What Data You Get
 
-| Field | Example |
-|---|---|
-| Company Name | Foxtons Estate Agents |
-| Email | lettings@foxtons.co.uk |
-| Phone | 020 7893 6262 |
-| Website | https://www.foxtons.co.uk |
-| Postcode | W1U 4EE |
-| Category | Real Estate Agency |
-| Rating | 4.2 |
-| Address | 110 Baker St, London |
-| Email Status | found |
-| Source | Google Maps |
+| Field        | Example                   |
+| ------------ | ------------------------- |
+| Company Name | Foxtons Estate Agents     |
+| Email        | lettings@foxtons.co.uk    |
+| Phone        | 020 7893 6262             |
+| Website      | https://www.foxtons.co.uk |
+| Postcode     | W1U 4EE                   |
+| Category     | Real Estate Agency        |
+| Rating       | 4.2                       |
+| Address      | 110 Baker St, London      |
+| Email Status | found                     |
+| Source       | Google Maps               |
 
-See [`Assets/sample_output.csv`](Assets/sample_output.csv) for 10 rows of realistic sample output.
+See [`Assets/sample_output.csv`](https://claude.ai/chat/Assets/sample_output.csv) for 10 rows of realistic sample output.
 
 ---
 
@@ -237,6 +237,7 @@ geography:
 ```
 
 Run with:
+
 ```bash
 python maps_scraper.py --mode mega
 ```
@@ -249,56 +250,56 @@ Use `--dry-run` first to see all the queries that will be executed.
 
 All keys with their defaults:
 
-| Key | Default | Description |
-|---|---|---|
-| `search.query` | *(required)* | What to search for |
-| `search.location` | *(required)* | City or area |
-| `phone.country_code` | `"44"` | Dialing code without + |
-| `phone.valid_prefixes` | `[see config]` | Accepted local prefixes |
-| `phone.valid_lengths` | `[10, 11]` | Accepted digit counts |
-| `phone.preferred_prefix` | `""` | Prefer this prefix if multiple phones found |
+| Key                        | Default          | Description                                 |
+| -------------------------- | ---------------- | ------------------------------------------- |
+| `search.query`           | *(required)*   | What to search for                          |
+| `search.location`        | *(required)*   | City or area                                |
+| `phone.country_code`     | `"44"`         | Dialing code without +                      |
+| `phone.valid_prefixes`   | `[see config]` | Accepted local prefixes                     |
+| `phone.valid_lengths`    | `[10, 11]`     | Accepted digit counts                       |
+| `phone.preferred_prefix` | `""`           | Prefer this prefix if multiple phones found |
 
 Common country phone configs:
 
-| Country | `country_code` | `valid_lengths` | `valid_prefixes` |
-|---|---|---|---|
-| UK | `"44"` | `[10, 11]` | `["01","02","03","07"]` (see config for full list) |
-| US | `"1"` | `[10]` | `[]` (accept all — filter by length) |
-| Germany | `"49"` | `[10, 11, 12]` | `["015","016","017","030","040","089"]` |
-| Australia | `"61"` | `[9, 10]` | `["02","03","04","07","08"]` |
-| France | `"33"` | `[9, 10]` | `["01","02","03","04","05","06","07","09"]` |
-| `geography.lat_min/max/lng_min/max` | `0.0` | Bounding box (0 = disabled) |
-| `geography.region_zones` | `[]` | Zone list for mega mode |
-| `geography.valid_postcode_prefixes` | `[]` | Postcode whitelist |
-| `classification.keywords` | `{}` | Category labels and keyword lists |
-| `performance.headless` | `true` | Invisible browser (faster) |
-| `performance.browser_channel` | `"chrome"` | `"chrome"` or `"chromium"` |
-| `performance.scroll_pause` | `1.5` | Seconds between scroll actions |
-| `performance.slow_connection_wait` | `25` | Seconds to wait per stall |
-| `performance.max_stalls` | `5` | Stall periods before end-of-results |
-| `performance.fetch_threads` | `15` | Parallel enrichment workers |
-| `performance.browser_restart_every` | `300` | Zones between browser restarts |
-| `scheduling.stop_at` | `null` | Auto-stop at HH:MM (24-hour, zero-padded) |
-| `scheduling.disk_min_mb` | `500` | Pause if disk space below this (MB) |
-| `output.format` | `"csv"` | `"csv"` or `"excel"` |
-| `output.directory` | `"output"` | Output folder (auto-created) |
-| `stealth.proxies` | `[]` | Proxy list — see `docs/proxy_guide.md` |
-| `stealth.rotate_every` | `10` | Rotate proxy every N queries (0 = on failure only) |
-| `captcha.human_solve` | `true` | Pause on captcha for manual solve |
+| Country                               | `country_code` | `valid_lengths`                                  | `valid_prefixes`                                  |
+| ------------------------------------- | ---------------- | -------------------------------------------------- | --------------------------------------------------- |
+| UK                                    | `"44"`         | `[10, 11]`                                       | `["01","02","03","07"]`(see config for full list) |
+| US                                    | `"1"`          | `[10]`                                           | `[]`(accept all — filter by length)              |
+| Germany                               | `"49"`         | `[10, 11, 12]`                                   | `["015","016","017","030","040","089"]`           |
+| Australia                             | `"61"`         | `[9, 10]`                                        | `["02","03","04","07","08"]`                      |
+| France                                | `"33"`         | `[9, 10]`                                        | `["01","02","03","04","05","06","07","09"]`       |
+| `geography.lat_min/max/lng_min/max` | `0.0`          | Bounding box (0 = disabled)                        |                                                     |
+| `geography.region_zones`            | `[]`           | Zone list for mega mode                            |                                                     |
+| `geography.valid_postcode_prefixes` | `[]`           | Postcode whitelist                                 |                                                     |
+| `classification.keywords`           | `{}`           | Category labels and keyword lists                  |                                                     |
+| `performance.headless`              | `true`         | Invisible browser (faster)                         |                                                     |
+| `performance.browser_channel`       | `"chrome"`     | `"chrome"`or `"chromium"`                      |                                                     |
+| `performance.scroll_pause`          | `1.5`          | Seconds between scroll actions                     |                                                     |
+| `performance.slow_connection_wait`  | `25`           | Seconds to wait per stall                          |                                                     |
+| `performance.max_stalls`            | `5`            | Stall periods before end-of-results                |                                                     |
+| `performance.fetch_threads`         | `15`           | Parallel enrichment workers                        |                                                     |
+| `performance.browser_restart_every` | `300`          | Zones between browser restarts                     |                                                     |
+| `scheduling.stop_at`                | `null`         | Auto-stop at HH:MM (24-hour, zero-padded)          |                                                     |
+| `scheduling.disk_min_mb`            | `500`          | Pause if disk space below this (MB)                |                                                     |
+| `output.format`                     | `"csv"`        | `"csv"`or `"excel"`                            |                                                     |
+| `output.directory`                  | `"output"`     | Output folder (auto-created)                       |                                                     |
+| `stealth.proxies`                   | `[]`           | Proxy list — see `docs/proxy_guide.md`          |                                                     |
+| `stealth.rotate_every`              | `10`           | Rotate proxy every N queries (0 = on failure only) |                                                     |
+| `captcha.human_solve`               | `true`         | Pause on captcha for manual solve                  |                                                     |
 
 ---
 
 ## CLI Reference
 
-| Flag | Description |
-|---|---|
-| `--mode city` | Single-query search (default) |
-| `--mode mega` | One query per zone — massively more results |
-| `--config PATH` | Use a different config file |
-| `--fresh` | Clear checkpoint, start from scratch |
-| `--login` | Open browser visibly to sign in to Google before scraping |
-| `--dry-run` | Preview all job queries without opening a browser |
-| `--stats` | Print statistics from the existing output file |
+| Flag              | Description                                               |
+| ----------------- | --------------------------------------------------------- |
+| `--mode city`   | Single-query search (default)                             |
+| `--mode mega`   | One query per zone — massively more results              |
+| `--config PATH` | Use a different config file                               |
+| `--fresh`       | Clear checkpoint, start from scratch                      |
+| `--login`       | Open browser visibly to sign in to Google before scraping |
+| `--dry-run`     | Preview all job queries without opening a browser         |
+| `--stats`       | Print statistics from the existing output file            |
 
 ---
 
@@ -306,12 +307,12 @@ Common country phone configs:
 
 While the scraper is running you can control it without stopping it:
 
-| Action | Keyboard | File |
-|---|---|---|
-| Pause | `P` | `echo pause > command.txt` |
-| Resume | `R` | `echo resume > command.txt` |
-| Quit cleanly | `Q` | `echo stop > command.txt` |
-| Status | `S` | — |
+| Action       | Keyboard | File                          |
+| ------------ | -------- | ----------------------------- |
+| Pause        | `P`    | `echo pause > command.txt`  |
+| Resume       | `R`    | `echo resume > command.txt` |
+| Quit cleanly | `Q`    | `echo stop > command.txt`   |
+| Status       | `S`    | —                            |
 
 The scraper saves a checkpoint after every completed zone. If you stop it (or it crashes), just re-run the same command to resume from where it left off.
 
@@ -321,19 +322,19 @@ The scraper saves a checkpoint after every completed zone. If you stop it (or it
 
 ### Data sheet columns
 
-| Column | Description |
-|---|---|
+| Column       | Description                                    |
+| ------------ | ---------------------------------------------- |
 | Company Name | Business trading name (pipe-suffixes stripped) |
-| Phone | Cleaned local number (country code stripped) |
-| Email | Contact email from the business's website |
-| Website | Website URL from the Maps listing |
-| Postcode | Extracted from address |
-| Category | Keyword-classified label (or "Other") |
-| Rating | Google Maps star rating |
-| Address | Full address string |
-| Email Status | `found` or `notfound` |
-| Phone Status | `found` or `notfound` |
-| Source | Always `Google Maps` |
+| Phone        | Cleaned local number (country code stripped)   |
+| Email        | Contact email from the business's website      |
+| Website      | Website URL from the Maps listing              |
+| Postcode     | Extracted from address                         |
+| Category     | Keyword-classified label (or "Other")          |
+| Rating       | Google Maps star rating                        |
+| Address      | Full address string                            |
+| Email Status | `found`or `notfound`                       |
+| Phone Status | `found`or `notfound`                       |
+| Source       | Always `Google Maps`                         |
 
 ### Log files
 
@@ -345,11 +346,11 @@ Rotating log files are written to the `logs/` directory. Each log file is capped
 
 **`headless: true` is the recommended setting** (and the default). Contrary to a common assumption, headless Chrome is *not* more likely to be detected and blocked by Google Maps. The scraper:
 
-- Removes the `navigator.webdriver` flag via an init script
-- Disables the automation banner (`--disable-blink-features=AutomationControlled`)
-- Rotates User-Agent strings across 7 real browser fingerprints
-- Rotates viewport sizes
-- Blocks tracking/analytics resources to reduce load time
+* Removes the `navigator.webdriver` flag via an init script
+* Disables the automation banner (`--disable-blink-features=AutomationControlled`)
+* Rotates User-Agent strings across 7 real browser fingerprints
+* Rotates viewport sizes
+* Blocks tracking/analytics resources to reduce load time
 
 The only reason to run with `headless: false` is debugging, or the `--login` flow.
 
@@ -367,14 +368,12 @@ The browser opens visibly, you sign in once, press Enter, then it runs headlessl
 
 ## Tech Stack
 
-| Library | Purpose |
-|---|---|
+| Library        | Purpose                                                    |
+| -------------- | ---------------------------------------------------------- |
 | `playwright` | Headless Chromium — navigates Maps, reads JS-rendered DOM |
-| `requests` | Parallel HTTP enrichment of business websites |
-| `openpyxl` | Writes styled Excel output with Data and Summary sheets |
-| `pyyaml` | YAML config loading |
-| `tqdm` | Live terminal progress bar with ETA |
-| `python-dotenv` | Optional — loads proxy settings from `.env` file |
+| `requests`   | Parallel HTTP enrichment of business websites              |
+| `openpyxl`   | Writes styled Excel output with Data and Summary sheets    |
+| `pyyaml`     | YAML config loading                                        |
 
 ---
 
@@ -415,9 +414,9 @@ All tests are pure-function and run in under 3 seconds with no browser or intern
 
 ## Requirements
 
-- Python 3.10+
-- See `requirements.txt` for full list
-- Google Chrome installed (optional but recommended over Playwright Chromium)
+* Python 3.10+
+* See `requirements.txt` for full list
+* Google Chrome installed (optional but recommended over Playwright Chromium)
 
 ---
 
@@ -459,9 +458,9 @@ Previously, when a business website was completely unreachable (dead SSL certifi
 
 The enricher now classifies every fetch failure:
 
-- **Connection-level errors** (SSL, ConnectionReset, ConnectTimeout): the entire domain is bailed immediately — subpaths are guaranteed to fail identically.
-- **Read timeouts**: one further attempt is allowed (a later path may succeed, as confirmed in testing). If a second consecutive read timeout occurs, the domain is bailed.
-- **4xx status codes**: treated as "path not found" — the loop continues to the next path normally.
+* **Connection-level errors** (SSL, ConnectionReset, ConnectTimeout): the entire domain is bailed immediately — subpaths are guaranteed to fail identically.
+* **Read timeouts** : one further attempt is allowed (a later path may succeed, as confirmed in testing). If a second consecutive read timeout occurs, the domain is bailed.
+* **4xx status codes** : treated as "path not found" — the loop continues to the next path normally.
 
 Typical saving: 8–32 seconds per unreachable domain, which adds up significantly on large overnight runs.
 
@@ -473,13 +472,13 @@ A new Stage 0 decodes these XOR-encoded addresses *before* the existing four pla
 
 The email pipeline is now a 5-stage pipeline:
 
-| Stage | Source | Signal |
-|---|---|---|
-| 0 | Cloudflare XOR (`data-cfemail`, `cdn-cgi` hrefs) | Very high |
-| 1 | `mailto:` hrefs | High |
-| 2 | `data-email` attributes (WordPress/Elementor) | High |
-| 3 | `[at]`/`(at)` obfuscation variants | Medium |
-| 4 | Plain regex on entity-decoded HTML | Low |
+| Stage | Source                                             | Signal    |
+| ----- | -------------------------------------------------- | --------- |
+| 0     | Cloudflare XOR (`data-cfemail`,`cdn-cgi`hrefs) | Very high |
+| 1     | `mailto:`hrefs                                   | High      |
+| 2     | `data-email`attributes (WordPress/Elementor)     | High      |
+| 3     | `[at]`/`(at)`obfuscation variants              | Medium    |
+| 4     | Plain regex on entity-decoded HTML                 | Low       |
 
 ### Smart contact page discovery
 
@@ -527,13 +526,13 @@ The output is always a UTF-8 CSV saved to `output/merged_YYYYMMDD_HHMMSS.csv` by
 
 This scraper is one component of a broader B2B lead generation pipeline targeting UK property management companies, letting agents, block managers, and HMO landlords.
 
-| Repo | What it does |
-|---|---|
-| **[Google Maps Business Scraper](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)** ← *you are here* | Extracts and enriches business listings from Google Maps |
-| **[Email Phone Enrichment Tool](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool)** | Scrapes contact emails and phones from company websites |
-| **[Leadhunter Pro](https://github.com/FAAQJAVED/Leadhunter_Pro)** | Multi-engine search scraper with HOT/WARM/COLD lead scoring |
-| **[Trustpilot Business Scraper](https://github.com/FAAQJAVED/trustpilot-business-scraper)** | Extracts business listings from Trustpilot search results |
-| **[JSON Directory Harvester](https://github.com/FAAQJAVED/json-directory-harvester)** | Configurable harvester for any JSON directory API with geo-filtering |
+| Repo                                                                                                               | What it does                                                         |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| **[Google Maps Business Scraper](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)**←*you are here* | Extracts and enriches business listings from Google Maps             |
+| **[Email Phone Enrichment Tool](https://github.com/FAAQJAVED/Email-Phone-Number-Enrichment-Tool)**              | Scrapes contact emails and phones from company websites              |
+| **[Leadhunter Pro](https://github.com/FAAQJAVED/Leadhunter_Pro)**                                               | Multi-engine search scraper with HOT/WARM/COLD lead scoring          |
+| **[Trustpilot Business Scraper](https://github.com/FAAQJAVED/trustpilot-business-scraper)**                     | Extracts business listings from Trustpilot search results            |
+| **[JSON Directory Harvester](https://github.com/FAAQJAVED/json-directory-harvester)**                           | Configurable harvester for any JSON directory API with geo-filtering |
 
 All five tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
 
@@ -547,4 +546,4 @@ This tool is for personal research and lead generation only. Check Google's Term
 
 ## License
 
-MIT © 2026 [FAAQJAVED](https://github.com/FAAQJAVED) — see [LICENSE](LICENSE)
+MIT © 2026 [FAAQJAVED](https://github.com/FAAQJAVED) — see [LICENSE](https://claude.ai/chat/LICENSE)
