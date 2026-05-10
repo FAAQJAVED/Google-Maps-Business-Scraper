@@ -7,8 +7,8 @@ Thank you for considering a contribution. Here is everything you need to know.
 ## Quick start
 
 ```bash
-git clone https://github.com/your-github-username/google-maps-scraper.git
-cd google-maps-scraper
+git clone https://github.com/FAAQJAVED/Google-Maps-Business-Scraper.git
+cd Google-Maps-Business-Scraper
 pip install -r requirements-dev.txt
 pytest tests/ -v          # all tests must pass before you open a PR
 ```
@@ -17,31 +17,31 @@ pytest tests/ -v          # all tests must pass before you open a PR
 
 ## What to work on
 
-Check the [Issues](https://github.com/FAAQJAVED/google-maps-scraper/issues) tab.
+Check the [Issues](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/issues) tab.
 Issues labelled **good first issue** are well-scoped starting points.
 
-**Before starting large changes**, open an issue first so we can align on approach.
+ **Before starting large changes** , open an issue first so we can align on approach.
 This avoids wasted work if the direction doesn't fit the project.
 
 ---
 
 ## Ground rules
 
-| Rule | Detail |
-|---|---|
-| **Tests must pass** | Run `pytest tests/ -v` before every commit. All existing tests must stay green. |
-| **New behaviour = new test** | Any bug fix or feature should include a test that would have caught the bug or proves the feature works. |
-| **Pure-function tests only** | Tests must not open a browser, hit the internet, or require API keys. Use `unittest.mock` for Playwright. |
+| Rule                                 | Detail                                                                                                                      |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **Tests must pass**            | Run `pytest tests/ -v`before every commit. All existing tests must stay green.                                            |
+| **New behaviour = new test**   | Any bug fix or feature should include a test that would have caught the bug or proves the feature works.                    |
+| **Pure-function tests only**   | Tests must not open a browser, hit the internet, or require API keys. Use `unittest.mock`for Playwright.                  |
 | **Preserve existing comments** | Inline comments and docstrings explain design decisions — don't remove them unless the code they describe is also removed. |
-| **One concern per PR** | A PR fixing a bug should not also refactor unrelated code. Keeps reviews fast and reversions clean. |
+| **One concern per PR**         | A PR fixing a bug should not also refactor unrelated code. Keeps reviews fast and reversions clean.                         |
 
 ---
 
 ## Code style
 
-- **PEP 8** — standard Python style. No formatter is enforced, but keep line length under ~100 chars.
-- **Type hints** — add them for all new public functions. Existing code uses them throughout.
-- **Docstrings** — all public functions need a one-line summary plus `Args` / `Returns` sections.
+* **PEP 8** — standard Python style. No formatter is enforced, but keep line length under ~100 chars.
+* **Type hints** — add them for all new public functions. Existing code uses them throughout.
+* **Docstrings** — all public functions need a one-line summary plus `Args` / `Returns` sections.
 
 ---
 
@@ -77,6 +77,7 @@ pytest tests/ -v
 Types: `fix`, `feat`, `test`, `docs`, `refactor`, `chore`
 
 Examples:
+
 ```
 fix: handle empty address in make_uid
 feat: add --fresh flag to city mode
@@ -104,16 +105,16 @@ Google periodically renames its obfuscated CSS classes. If the scraper starts
 returning empty names or addresses, you will see a `🚨 SELECTOR ALERT` warning
 in the terminal. Update these constants in `scraper/extractor.py`:
 
-| Variable | Selector | Extracts |
-|---|---|---|
+| Variable           | Selector                                     | Extracts                         |
+| ------------------ | -------------------------------------------- | -------------------------------- |
 | `_FEED_CARD_SEL` | `div[role="feed"] a[href*="/maps/place/"]` | Card hrefs — unlikely to change |
-| (h1 selector) | `h1.DUwDvf` | Business name |
-| (category) | `button.DkEaL` | Google category label |
-| (feed) | `div[role="feed"]` | Results panel — stable |
-| (address) | `[data-item-id="address"]` | Full address |
-| (phone) | `[data-item-id*="phone"]` | Phone number |
-| (website) | `[data-item-id="authority"]` | Website URL |
-| (rating) | `div.F7nice > span` | Star rating |
+| (h1 selector)      | `h1.DUwDvf`                                | Business name                    |
+| (category)         | `button.DkEaL`                             | Google category label            |
+| (feed)             | `div[role="feed"]`                         | Results panel — stable          |
+| (address)          | `[data-item-id="address"]`                 | Full address                     |
+| (phone)            | `[data-item-id*="phone"]`                  | Phone number                     |
+| (website)          | `[data-item-id="authority"]`               | Website URL                      |
+| (rating)           | `div.F7nice > span`                        | Star rating                      |
 
 **How to find the new selector:** Open Google Maps in Chrome, right-click the
 business name on an open place panel → Inspect. Find the `h1` or `h2` element
