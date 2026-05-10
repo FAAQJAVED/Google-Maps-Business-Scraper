@@ -35,13 +35,10 @@ dev   = ["pytest>=8.2.0", "pytest-cov>=5.0.0"]
 maps-scraper = "maps_scraper:main"
 
 [project.urls]
-# TODO: update this URL before publishing
-Homepage   = "https://github.com/FAAQJAVED/google-maps-scraper"
-# TODO: update this URL before publishing
-Repository = "https://github.com/FAAQJAVED/google-maps-scraper"
-# TODO: update this URL before publishing
-Issues     = "https://github.com/FAAQJAVED/google-maps-scraper/issues"
-Changelog  = "https://github.com/FAAQJAVED/google-maps-scraper/blob/main/CHANGELOG.md"
+Homepage   = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper"
+Repository = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper"
+Issues     = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/issues"
+Changelog  = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
