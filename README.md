@@ -7,7 +7,6 @@
 [![CI](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)](tests/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/FAAQJAVED/Google-Maps-Business-Scraper)
 
 > Found this useful? A ⭐ on GitHub helps other developers find it.
