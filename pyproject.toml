@@ -38,7 +38,7 @@ maps-scraper = "maps_scraper:main"
 Homepage   = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper"
 Repository = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper"
 Issues     = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/issues"
-Changelog  = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/blob/main/CHANGELOG.md"
+Changelog  = "https://github.com/FAAQJAVED/Google-Maps-Business-Scraper/blob/master/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -49,7 +49,7 @@ testpaths    = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --cov=scraper --cov=maps_scraper --cov-report=term-missing"
 
 [tool.coverage.run]
 source = ["scraper", "maps_scraper"]
