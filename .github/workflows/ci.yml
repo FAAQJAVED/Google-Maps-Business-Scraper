@@ -30,7 +30,7 @@ jobs:
           pip install -r requirements.txt -r requirements-dev.txt
 
       - name: Run tests
-        run: pytest tests/ -v --tb=short --cov=scraper --cov=maps_scraper --cov-report=term-missing --cov-report=xml
+        run: pytest tests/ --cov-report=xml
 
       - name: Check import health
         run: python -c "from scraper.config import load_config; from scraper.browser import ProxyManager; from scraper.storage import append_rows; print('imports OK')"
