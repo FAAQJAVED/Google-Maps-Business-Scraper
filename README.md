@@ -535,7 +535,7 @@ This scraper is one component of a broader B2B lead generation pipeline targetin
 | **[HTML Directory Scrapers](https://github.com/FAAQJAVED/html-directory-scrapers)** | Two-engine toolkit for HTML and WordPress AJAX directories |
 | **[JSON Directory Harvester](https://github.com/FAAQJAVED/json-directory-harvester)** | Configurable harvester for any JSON directory API with geo-filtering |
 
-All five tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
+All tools share the same Excel output schema (Data + Summary sheets) — results can be combined directly in Excel or imported together into a CRM.
 
 ---
 
