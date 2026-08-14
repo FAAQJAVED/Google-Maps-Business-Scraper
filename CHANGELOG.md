@@ -1,5 +1,29 @@
 # Changelog
 
+## v2.1.0 — Interactive Search Configuration
+
+### Added
+- **Interactive city-mode search configuration** — running
+  `python maps_scraper.py --mode city` now prompts the user to enter the
+  business type and location instead of requiring manual edits to
+  `config.yaml` before every city-mode run.
+- **Automatic `config.yaml` update** — the entered business type and location
+  are automatically written to the `search.query` and `search.location`
+  fields in `config.yaml`.
+- **Input validation** — empty business type or location values are rejected
+  and the user is prompted again until valid values are provided.
+- **Configuration validation after update** — the updated configuration is
+  loaded through the existing configuration validation system before the
+  scraper starts.
+- **Non-interactive modes preserved** — `mega`, `--dry-run`, and `--stats`
+  continue to use the existing configuration workflow without interactive
+  prompts.
+- **Reusable `ask_search_details()` helper** — added a dedicated function to
+  collect search details, update the configuration dictionary, save the YAML
+  file, and display the selected search parameters.
+
+---
+
 ## v2.0.0 — Final merged release
 
 This release merges the best elements from three parallel development branches
@@ -68,6 +92,7 @@ This release merges the best elements from three parallel development branches
   - `TestCleanBusinessName` (4 tests) — pipe suffix stripping, no-pipe passthrough,
     empty string safety, whitespace trimming.
   - `TestMaxStallsConfig` (2 tests) — default value present, override from user config.
+  
 
 ---
 
