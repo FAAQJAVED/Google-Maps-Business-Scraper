@@ -36,11 +36,13 @@ import logging.handlers
 import sys
 import time
 import warnings
+import yaml
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote_plus
- 
+
+
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
  
@@ -680,7 +682,52 @@ def _parse_args() -> argparse.Namespace:
     )
     return p.parse_args()
  
- 
+def ask_search_details(cfg: dict[str, Any], config_path: str) -> dict[str, Any]:
+    """Ask for business type and location, then update config.yaml."""
+
+    print("\n" + "=" * 65)
+    print("       GOOGLE MAPS BUSINESS SCRAPER")
+    print("=" * 65)
+
+    query = input("\nEnter business type: ").strip()
+    while not query:
+        print("❌ Business type cannot be empty.")
+        query = input("Enter business type: ").strip()
+
+    location = input("Enter location: ").strip()
+    while not location:
+        print("❌ Location cannot be empty.")
+        location = input("Enter location: ").strip()
+
+    # Update search settings
+    cfg.setdefault("search", {})
+    cfg["search"]["query"] = query
+    cfg["search"]["location"] = location
+
+    # Pakistan phone settings
+    # cfg.setdefault("phone", {})
+    # cfg["phone"]["country_code"] = "92"
+    # cfg["phone"]["valid_prefixes"] = ["03"]
+    # cfg["phone"]["valid_lengths"] = [10, 11]
+
+    # Save updated configuration
+    with open(config_path, "w", encoding="utf-8") as f:
+        yaml.safe_dump(
+            cfg,
+            f,
+            sort_keys=False,
+            allow_unicode=True,
+            default_flow_style=False,
+        )
+
+    print("\n✓ config.yaml updated successfully!")
+    print(f"  Business type : {query}")
+    print(f"  Location      : {location}")
+    # print("  Country       : Pakistan (+92)")
+    print("=" * 65 + "\n")
+
+    return cfg
+
 def main() -> None:
     """Package entry-point — called by both ``__main__`` and the console script."""
     args = _parse_args()
@@ -689,12 +736,35 @@ def main() -> None:
     # --stats don't create a logs/ directory or open a log file.
     setup_logging()
  
+    # Interactive city-mode configuration must happen BEFORE
+    # load_config(), because load_config() validates search.query
+    # and search.location.
+    if args.mode == "city" and not args.stats and not args.dry_run:
+        try:
+            # Read the YAML directly without validation
+            with open(args.config, "r", encoding="utf-8") as f:
+                cfg = yaml.safe_load(f) or {}
+
+            cfg = ask_search_details(cfg, args.config)
+
+        except FileNotFoundError:
+            print(f"\n❌ Config file not found: {args.config}", file=sys.stderr)
+            sys.exit(1)
+
+    else:
+        try:
+            cfg = load_config(args.config)
+        except (FileNotFoundError, ValueError) as exc:
+            print(f"\n❌  Config error:\n    {exc}", file=sys.stderr)
+            sys.exit(1)
+
+    # Validate the updated configuration
     try:
         cfg = load_config(args.config)
     except (FileNotFoundError, ValueError) as exc:
         print(f"\n❌  Config error:\n    {exc}", file=sys.stderr)
         sys.exit(1)
- 
+    
     if args.fresh:
         clear_checkpoint(cfg)
         clear_done_queries(cfg)
